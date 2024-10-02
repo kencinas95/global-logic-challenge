@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: kitchen-sink-migration
+  data:
+    mongodb:
+      uri: mongodb://mongodb:27017/members
+      auto-index-creation: true
+
+server:
+  port: 8080
+

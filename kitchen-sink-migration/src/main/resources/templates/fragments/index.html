@@ -1,0 +1,81 @@
+<h1>Welcome to JBoss!</h1>
+
+<section>
+    <p>You have successfully deployed a Jakarta EE Enterprise Application.</p>
+</section>
+
+<form id="reg" action="#" th:action="@{/views/members/register}" th:object="${member}" method="post">
+    <h2>Member Registration</h2>
+    <p>Enforces annotation-based constraints defined on the model class.</p>
+    <table class="panel-grid">
+        <tbody>
+            <tr>
+                <td><label for="name">Name:</label></td>
+                <td><input type="text" th:field="*{name}" id="name"></td>
+                <td><span class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span> </td>
+            </tr>
+            <tr>
+                <td><label for="email">Email:</label></td>
+                <td><input type="email" th:field="*{email}" id="email"></td>
+                <td><span class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span> </td>
+            </tr>
+            <tr>
+                <td><label for="phoneNumber">Phone Number:</label></td>
+                <td><input type="text" th:field="*{phoneNumber}" id="phoneNumber"></td>
+                <td><span class="error-message" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span> </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <button type="submit" class="register">Register</button>
+                </td>
+                <td colspan="2">
+                    <ul th:if="${not #lists.isEmpty(messages)}">
+                        <li th:each="message : ${messages}">
+                            <span th:class="${message.severity}">
+                                <b th:text="${message.summary}"></b>
+                                <p th:text="${message.detail}"></p>
+                            </span>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</form>
+
+<h2>Members</h2>
+<section style="text-align: center;" th:if="${#lists.isEmpty(members)}">
+    <em>No registered members.</em>
+</section>
+<table th:if="${not #lists.isEmpty(members)}">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>REST ULR</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="_member : ${members}">
+            <td th:text="${_member.id}"></td>
+            <td th:text="${_member.name}"></td>
+            <td th:text="${_member.email}"></td>
+            <td th:text="${_member.phoneNumber}"></td>
+            <td>
+                <a th:href="@{/members/{id}(id=${_member.id})}"
+                   th:text="@{/members/{id}(id=${_member.id})}"></a>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                REST URL for all members: <a th:href="@{/members}" th:text="@{/members}"></a>
+            </td>
+        </tr>
+    </tfoot>
+</table>

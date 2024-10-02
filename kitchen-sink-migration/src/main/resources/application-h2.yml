@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:KitchenSinkMigrationApp;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    initialization-mode: always
+
+  h2:
+    console:
+      path: /h2console
+      enabled: true
+      settings:
+        trace: true
+
+  jpa:
+    open-in-view: true
+    generate-dll: true
+    defer-datasource-initialization: true
+    properties:
+      hibernate.show-sql: true
+      hibernate.use-sql-comments: true
+      hibernate.format-sql: true
+      hibernate.hbm2dll.auto: create
+    database-platform: org.hibernate.dialect.H2Dialect
+
+logging:
+  level:
+    org.hibernate:
+      type.descriptor.sql.BasicBinder: TRACE
+      SQL: DEBUG
