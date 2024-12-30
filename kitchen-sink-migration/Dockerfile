@@ -7,5 +7,5 @@ RUN mvn clean package
 FROM openjdk:21-jdk-slim
 VOLUME /tmp
 COPY --from=builder /app/target/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=docker", "/app.jar"]
 EXPOSE 8080
